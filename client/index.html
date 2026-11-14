@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heavegi Platforms — India's Own Marketplace</title>
+  <meta name="description" content="Shop electronics, clothing, groceries, books and more at Heavegi — India's trusted online marketplace." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+</head>
+<body>
+
+<!-- Indian Flag Ribbon -->
+<div class="flag-ribbon"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo" aria-label="Heavegi Home">
+      <span class="logo-icon">🛍️</span>
+      Heave<span>gi</span>
+    </a>
+
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle search" aria-expanded="false">☰</button>
+
+    <form class="nav-search" id="nav-search-form" role="search" aria-label="Search products">
+      <input type="text" id="nav-search-input" placeholder="Search products, brands and more…" aria-label="Search" />
+      <button type="submit" aria-label="Search">🔍</button>
+    </form>
+
+    <div class="nav-actions">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <span class="label">Hello,</span>
+        <span class="value">Home</span>
+      </a>
+      <a href="#" class="nav-link" id="login-link" aria-label="Account">
+        <span class="label">Hello, Guest</span>
+        <span class="value">Account ▾</span>
+      </a>
+      <a href="cart.html" class="cart-link" aria-label="Cart">
+        <div class="cart-icon-wrap">
+          🛒
+          <span id="cart-badge" style="display:none;">0</span>
+        </div>
+        <span>Cart</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- CATEGORY NAV -->
+<nav class="cat-nav" aria-label="Categories">
+  <div class="cat-nav-inner">
+    <a href="products.html?category=Electronics">📱 Electronics</a>
+    <a href="products.html?category=Clothing">👕 Clothing</a>
+    <a href="products.html?category=Groceries">🛒 Groceries</a>
+    <a href="products.html?category=Books">📚 Books</a>
+    <a href="products.html?category=Home+%26+Kitchen">🏠 Home & Kitchen</a>
+    <a href="faq.html">❓ Help & FAQ</a>
+    <a href="error-codes.html">⚠️ Error Codes</a>
+    <a href="health.html">🟢 Health Check</a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<section class="hero" aria-label="Hero banner">
+  <div class="hero-content container">
+    <h1>India's Own <em>Marketplace</em> 🇮🇳</h1>
+    <p>Shop millions of products at unbeatable prices — delivered to your doorstep.</p>
+    <div class="hero-cta">
+      <a href="products.html" class="btn-primary">Shop Now</a>
+      <a href="faq.html" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES SECTION -->
+<section class="section" aria-labelledby="cat-heading">
+  <div class="container">
+    <h2 class="section-title" id="cat-heading">Shop by Category</h2>
+    <p class="section-subtitle">Explore our wide range of products across popular categories</p>
+    <div class="category-grid">
+      <a href="products.html?category=Electronics" class="category-card">
+        <div class="cat-icon">📱</div>
+        <div class="cat-name">Electronics</div>
+      </a>
+      <a href="products.html?category=Clothing" class="category-card">
+        <div class="cat-icon">👕</div>
+        <div class="cat-name">Clothing</div>
+      </a>
+      <a href="products.html?category=Groceries" class="category-card">
+        <div class="cat-icon">🛒</div>
+        <div class="cat-name">Groceries</div>
+      </a>
+      <a href="products.html?category=Books" class="category-card">
+        <div class="cat-icon">📚</div>
+        <div class="cat-name">Books</div>
+      </a>
+      <a href="products.html?category=Home+%26+Kitchen" class="category-card">
+        <div class="cat-icon">🏠</div>
+        <div class="cat-name">Home & Kitchen</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section" style="background:#fff;" aria-labelledby="feat-heading">
+  <div class="container">
+    <h2 class="section-title" id="feat-heading">Featured Products</h2>
+    <p class="section-subtitle">Top picks curated for you today</p>
+    <div id="featured-products" class="product-grid">
+      <div class="loading-container"><div class="spinner"></div><p>Loading products…</p></div>
+    </div>
+    <div style="text-align:center;margin-top:28px;">
+      <a href="products.html" class="btn-primary">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERS BANNER -->
+<section class="section" aria-labelledby="offers-heading">
+  <div class="container">
+    <h2 class="section-title" id="offers-heading">Today's Deals</h2>
+    <p class="section-subtitle">Limited-time offers — grab before they're gone!</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+      <div style="background:linear-gradient(135deg,#131921,#232F3E);color:#fff;border-radius:16px;padding:32px;position:relative;overflow:hidden;">
+        <div style="position:absolute;right:-20px;top:-20px;font-size:7rem;opacity:0.08;">📱</div>
+        <span class="badge badge-warning">Up to 40% Off</span>
+        <h3 style="font-size:1.4rem;margin:12px 0 8px;">Electronics Sale</h3>
+        <p style="color:#aaa;margin-bottom:20px;">Top smartphones, laptops, earphones at massive discounts.</p>
+        <a href="products.html?category=Electronics" class="btn-primary">Shop Electronics</a>
+      </div>
+      <div style="background:linear-gradient(135deg,#138808,#1a5e1a);color:#fff;border-radius:16px;padding:32px;position:relative;overflow:hidden;">
+        <div style="position:absolute;right:-20px;top:-20px;font-size:7rem;opacity:0.08;">👕</div>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;">Up to 60% Off</span>
+        <h3 style="font-size:1.4rem;margin:12px 0 8px;">Fashion Week</h3>
+        <p style="color:#b0d4b0;margin-bottom:20px;">Trending kurtas, sarees, and ethnic wear for every occasion.</p>
+        <a href="products.html?category=Clothing" class="btn-primary">Shop Fashion</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <h4>🛍️ Heavegi</h4>
+      <p>India's trusted online marketplace delivering joy to every corner of the country.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">My Cart</a></li>
+        <li><a href="faq.html">Help & FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="products.html?category=Electronics">Electronics</a></li>
+        <li><a href="products.html?category=Clothing">Clothing</a></li>
+        <li><a href="products.html?category=Groceries">Groceries</a></li>
+        <li><a href="products.html?category=Books">Books</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Customer Care</h4>
+      <ul>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="health.html">Service Status</a></li>
+        <li><a href="#" onclick="document.getElementById('chat-fab').click();return false;">Live Chat</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 <span>Heavegi Platforms Pvt. Ltd.</span> — Made with ❤️ in India 🇮🇳</p>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/chat.js"></script>
+<script>
+  // Mobile hamburger
+  document.getElementById('hamburger').addEventListener('click', function () {
+    const form = document.getElementById('nav-search-form');
+    form.classList.toggle('mobile-open');
+    this.setAttribute('aria-expanded', form.classList.contains('mobile-open'));
+  });
+
+  // Search redirect
+  document.getElementById('nav-search-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const q = document.getElementById('nav-search-input').value.trim();
+    if (q) window.location.href = `products.html?q=${encodeURIComponent(q)}`;
+  });
+
+  // Load featured products
+  async function loadFeatured() {
+    const container = document.getElementById('featured-products');
+    try {
+      const data = await API.get('/api/products?limit=8');
+      const products = data.products || data;
+      if (!products.length) { container.innerHTML = '<p class="text-center">No products found.</p>'; return; }
+      container.innerHTML = products.slice(0, 8).map((p, i) => createProductCard(p, i)).join('');
+      container.querySelectorAll('.btn-add-cart').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const p = JSON.parse(btn.dataset.product);
+          Cart.addItem(p);
+        });
+      });
+    } catch (err) {
+      container.innerHTML = renderFallbackProducts();
+      container.querySelectorAll('.btn-add-cart').forEach(btn => {
+        btn.addEventListener('click', () => Cart.addItem(JSON.parse(btn.dataset.product)));
+      });
+    }
+  }
+
+  function createProductCard(p, i) {
+    const stars = '★'.repeat(Math.round(p.rating || 4)) + '☆'.repeat(5 - Math.round(p.rating || 4));
+    const imgUrl = p.image || `https://picsum.photos/300/200?random=${(p.id || i) + 10}`;
+    const product = JSON.stringify(p).replace(/"/g, '&quot;');
+    return `
+      <div class="product-card">
+        <a href="product-detail.html?id=${p.id}">
+          <img src="${imgUrl}" alt="${p.name}" class="product-card-img" loading="lazy" />
+        </a>
+        <div class="product-card-body">
+          <span class="product-card-category">${p.category || 'General'}</span>
+          <a href="product-detail.html?id=${p.id}" class="product-card-name">${p.name}</a>
+          <div class="product-card-rating">
+            <span>${stars}</span>
+            <span class="count">(${p.reviews || Math.floor(Math.random()*500+50)})</span>
+          </div>
+          <div class="product-card-price">
+            ₹${Number(p.price).toLocaleString('en-IN')}
+            ${p.mrp ? `<span class="original">₹${Number(p.mrp).toLocaleString('en-IN')}</span>` : ''}
+          </div>
+          <div class="product-card-actions">
+            <button class="btn-add-cart" data-product="${product}">🛒 Add to Cart</button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function renderFallbackProducts() {
+    const fallback = [
+      { id:1, name:'Samsung Galaxy M14 5G', price:14999, mrp:18999, category:'Electronics', rating:4, reviews:1234 },
+      { id:2, name:'Realme Buds Air 3 Neo', price:1799, mrp:2999, category:'Electronics', rating:4, reviews:892 },
+      { id:3, name:'Cotton Kurta Set for Women', price:699, mrp:1199, category:'Clothing', rating:5, reviews:567 },
+      { id:4, name:'Tata Salt 1kg', price:24, mrp:28, category:'Groceries', rating:5, reviews:9823 },
+      { id:5, name:'Wings of Fire — A.P.J. Abdul Kalam', price:160, mrp:250, category:'Books', rating:5, reviews:4521 },
+      { id:6, name:'Prestige Pressure Cooker 5L', price:1299, mrp:1999, category:'Home & Kitchen', rating:4, reviews:723 },
+      { id:7, name:'boAt Rockerz 450 Headphone', price:1299, mrp:2990, category:'Electronics', rating:4, reviews:3421 },
+      { id:8, name:'Levi\'s Men\'s Regular Jeans', price:1799, mrp:2999, category:'Clothing', rating:4, reviews:456 },
+    ];
+    return fallback.map((p, i) => createProductCard(p, i)).join('');
+  }
+
+  loadFeatured();
+</script>
+</body>
+</html>

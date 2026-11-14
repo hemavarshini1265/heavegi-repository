@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Health & Service Status — Heavegi Platforms</title>
+  <meta name="description" content="Live health status, database connections (SQL & MongoDB), and third-party API monitors with timeout and fallback tracking." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+  <style>
+    .health-container { max-width: 1040px; margin: 30px auto; padding: 0 16px; }
+    .health-header { background: linear-gradient(135deg, #131921 0%, #232F3E 100%); color: #fff; padding: 36px 24px; border-radius: 12px; margin-bottom: 24px; text-align: center; }
+    .health-header h1 { font-size: 2rem; color: #FF9900; margin-bottom: 8px; }
+    .health-header p { color: #ddd; font-size: 0.95rem; }
+    
+    .overall-banner { display: flex; align-items: center; justify-content: space-between; background: #e6f4ea; border: 2px solid #34a853; border-radius: 10px; padding: 18px 24px; margin-bottom: 28px; }
+    .overall-text h3 { color: #137333; font-size: 1.25rem; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .overall-text p { color: #137333; font-size: 0.9rem; margin: 0; }
+    .btn-refresh { background: #131921; color: #FF9900; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .btn-refresh:hover { background: #232F3E; }
+
+    .health-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 18px; margin-bottom: 30px; }
+    .status-card { background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .status-title { font-size: 1.05rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+    .status-pill { font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
+    .pill-green { background: #dcfce7; color: #15803d; }
+    .pill-amber { background: #fef3c7; color: #b45309; }
+    .pill-blue { background: #dbeafe; color: #1d4ed8; }
+
+    .status-body { font-size: 0.88rem; color: #475569; line-height: 1.6; }
+    .status-metric { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #f1f5f9; }
+    .status-metric strong { color: #0f172a; }
+
+    .test-box { background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 24px; margin-bottom: 30px; }
+    .test-box h3 { font-size: 1.2rem; color: #131921; margin-bottom: 12px; }
+    .test-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .test-input { padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; }
+    .test-btn { background: #FF9900; color: #131921; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    .test-output { background: #0f172a; color: #38bdf8; padding: 14px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; max-height: 200px; overflow-y: auto; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+
+<div class="flag-ribbon"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-icon">🛍️</span>Heave<span>gi</span></a>
+    <div class="nav-actions" style="margin-left:auto;">
+      <a href="index.html" class="nav-link"><span class="label">Store</span><span class="value">Home</span></a>
+      <a href="faq.html" class="nav-link"><span class="label">Customer</span><span class="value">Help</span></a>
+      <a href="error-codes.html" class="nav-link"><span class="label">System</span><span class="value">Errors</span></a>
+    </div>
+  </div>
+</nav>
+
+<div class="health-container">
+  <div class="health-header">
+    <h1>🟢 Live System Health & API Monitoring</h1>
+    <p>Real-time telemetry for Heavegi Web Services, SQL (SQLite), MongoDB, and Third-Party External APIs with timeout and fallback protection.</p>
+  </div>
+
+  <div class="overall-banner">
+    <div class="overall-text">
+      <h3 id="overall-status"><span>●</span> All Systems Operational</h3>
+      <p id="overall-subtitle">Heavegi core e-commerce engine and microservices running normally.</p>
+    </div>
+    <button class="btn-refresh" onclick="fetchHealth()">🔄 Refresh Status</button>
+  </div>
+
+  <div class="health-grid">
+    <!-- Web Server -->
+    <div class="status-card">
+      <div class="status-header">
+        <span class="status-title">🚀 Express Server</span>
+        <span class="status-pill pill-green" id="server-status">Healthy</span>
+      </div>
+      <div class="status-body">
+        <div class="status-metric"><span>Uptime:</span><strong id="server-uptime">--</strong></div>
+        <div class="status-metric"><span>Version:</span><strong>v1.0.0</strong></div>
+        <div class="status-metric"><span>Environment:</span><strong>Production / Cloud</strong></div>
+        <div class="status-metric"><span>Request Logger:</span><strong style="color:#15803d;">Active (/logs)</strong></div>
+      </div>
+    </div>
+
+    <!-- SQL Database -->
+    <div class="status-card">
+      <div class="status-header">
+        <span class="status-title">🗄️ SQL Database</span>
+        <span class="status-pill pill-green" id="sql-status">Connected</span>
+      </div>
+      <div class="status-body">
+        <div class="status-metric"><span>Engine:</span><strong>SQLite 3 (WAL Mode)</strong></div>
+        <div class="status-metric"><span>Products Seeded:</span><strong>30 Items (India)</strong></div>
+        <div class="status-metric"><span>FAQs in SQL:</span><strong>10 Questions</strong></div>
+        <div class="status-metric"><span>Error Codes in SQL:</span><strong>8 Codes</strong></div>
+        <div class="status-metric"><span>Support Tickets:</span><strong>SQL Storage Active</strong></div>
+      </div>
+    </div>
+
+    <!-- MongoDB Database -->
+    <div class="status-card">
+      <div class="status-header">
+        <span class="status-title">🍃 MongoDB</span>
+        <span class="status-pill pill-blue" id="mongo-status">Connected / Fallback</span>
+      </div>
+      <div class="status-body">
+        <div class="status-metric"><span>Chat Logs Store:</span><strong>MongoDB / Resilient</strong></div>
+        <div class="status-metric"><span>User Feedback Store:</span><strong>MongoDB / Resilient</strong></div>
+        <div class="status-metric"><span>Fault Tolerance:</span><strong style="color:#15803d;">Zero-Downtime Cache</strong></div>
+      </div>
+    </div>
+
+    <!-- Third-Party API 1: India Post Pincode -->
+    <div class="status-card">
+      <div class="status-header">
+        <span class="status-title">📮 India Post Pincode API</span>
+        <span class="status-pill pill-green" id="pincode-api-status">Protected</span>
+      </div>
+      <div class="status-body">
+        <div class="status-metric"><span>Provider:</span><strong>api.postalpincode.in</strong></div>
+        <div class="status-metric"><span>Time Limit / Timeout:</span><strong>3,500 ms (Strict)</strong></div>
+        <div class="status-metric"><span>Fallback Mechanism:</span><strong style="color:#15803d;">Indian Pincode Cache</strong></div>
+        <div class="status-metric"><span>Route:</span><strong>/api/pincode/:pincode</strong></div>
+      </div>
+    </div>
+
+    <!-- Third-Party API 2: OpenWeatherMap -->
+    <div class="status-card">
+      <div class="status-header">
+        <span class="status-title">🌦️ OpenWeatherMap API</span>
+        <span class="status-pill pill-green" id="weather-api-status">Protected</span>
+      </div>
+      <div class="status-body">
+        <div class="status-metric"><span>Provider:</span><strong>OpenWeatherMap</strong></div>
+        <div class="status-metric"><span>Time Limit / Timeout:</span><strong>5,000 ms</strong></div>
+        <div class="status-metric"><span>Fallback Mechanism:</span><strong style="color:#15803d;">8 Indian Metro Cache</strong></div>
+        <div class="status-metric"><span>Route:</span><strong>/api/weather?city=Mumbai</strong></div>
+      </div>
+    </div>
+
+    <!-- Security & Protection -->
+    <div class="status-card">
+      <div class="status-header">
+        <span class="status-title">🛡️ Security & Guardrails</span>
+        <span class="status-pill pill-green">Active</span>
+      </div>
+      <div class="status-body">
+        <div class="status-metric"><span>Helmet Security:</span><strong>HTTP Headers Secured</strong></div>
+        <div class="status-metric"><span>Rate Limiter:</span><strong>300 req / 15 min</strong></div>
+        <div class="status-metric"><span>Secrets Management:</span><strong>.env / Zero Secrets in Git</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Live Test Section -->
+  <div class="test-box">
+    <h3>🧪 Test Third-Party API with Time Limit & Fallback Protection</h3>
+    <p style="font-size:0.9rem;color:#64748b;margin-bottom:14px;">
+      Test the India Post Pincode API live. If the external government postal API takes over 3.5 seconds or fails, the server instantly engages the Indian Pincode Fallback Directory without user disruption.
+    </p>
+    <div class="test-row">
+      <input type="text" id="test-pincode" class="test-input" value="110001" placeholder="Enter 6-digit PIN (e.g. 110001, 600001, 400001)" />
+      <button class="test-btn" onclick="runPincodeTest()">Test Pincode API (3.5s Timeout + Fallback)</button>
+    </div>
+    <div id="test-result" class="test-output">Click "Test Pincode API" to execute real-time diagnostic request...</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <p>&copy; 2024 <span>Heavegi Platforms Pvt. Ltd.</span> — Reliability & Resilience</p>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/chat.js"></script>
+<script>
+  function formatUptime(seconds) {
+    const d = Math.floor(seconds / 86400);
+    const h = Math.floor((seconds % 86400) / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    return `${d > 0 ? d + 'd ' : ''}${h}h ${m}m ${s}s`;
+  }
+
+  async function fetchHealth() {
+    try {
+      const data = await API.get('/api/health');
+      document.getElementById('server-uptime').textContent = formatUptime(data.uptime || 0);
+      document.getElementById('sql-status').textContent = data.db_sql === 'connected' ? 'Connected (Healthy)' : data.db_sql;
+      document.getElementById('mongo-status').textContent = data.db_mongo === 'connected' ? 'Connected (Live)' : 'Fallback Store Ready';
+      if (data.db_mongo !== 'connected') {
+        document.getElementById('mongo-status').className = 'status-pill pill-amber';
+      }
+    } catch (err) {
+      document.getElementById('overall-status').innerHTML = '<span>●</span> Offline or Unreachable';
+      document.getElementById('overall-status').style.color = '#c0392b';
+    }
+  }
+
+  async function runPincodeTest() {
+    const pin = document.getElementById('test-pincode').value.trim() || '110001';
+    const output = document.getElementById('test-result');
+    output.textContent = `Connecting to /api/pincode/${pin} with 3500ms timeout boundary...\n`;
+
+    const start = performance.now();
+    try {
+      const res = await fetch(`/api/pincode/${pin}`);
+      const data = await res.json();
+      const elapsed = Math.round(performance.now() - start);
+
+      output.textContent = `[DIAGNOSTIC COMPLETE IN ${elapsed}ms]\n` +
+        `HTTP Status: ${res.status}\n` +
+        `Data Source: ${data.source} ${data.source.includes('fallback') ? '(FALLBACK ACTIVATED)' : '(LIVE API SUCCESS)'}\n` +
+        `Pincode: ${data.pincode}\n` +
+        `Location: ${data.city || data.district}, ${data.state}, ${data.country}\n` +
+        `Delivery Status: ${data.delivery_available ? 'Available' : 'Unserviceable'}\n` +
+        (data.note ? `Note: ${data.note}\n` : '') +
+        `Timestamp: ${data.timestamp}\n\n` +
+        JSON.stringify(data, null, 2);
+    } catch (err) {
+      output.textContent = `Error executing request: ${err.message}`;
+    }
+  }
+
+  fetchHealth();
+  setInterval(fetchHealth, 15000);
+</script>
+</body>
+</html>
+

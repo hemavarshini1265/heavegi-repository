@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Error Codes Directory — Heavegi Platforms</title>
+  <meta name="description" content="Complete directory and explanation of HTTP status codes and custom Heavegi platform error codes." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+  <style>
+    .error-container { max-width: 1040px; margin: 30px auto; padding: 0 16px; }
+    .error-header { background: linear-gradient(135deg, #131921 0%, #232F3E 100%); color: #fff; padding: 36px 24px; border-radius: 12px; margin-bottom: 28px; text-align: center; }
+    .error-header h1 { font-size: 2rem; color: #FF9900; margin-bottom: 8px; }
+    .error-header p { color: #ddd; max-width: 650px; margin: 0 auto; font-size: 0.95rem; }
+    
+    .error-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; margin-bottom: 40px; }
+    .error-card { background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; transition: all 0.2s; }
+    .error-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+    
+    .error-badge-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .error-badge { font-weight: 800; font-size: 1.1rem; padding: 4px 12px; border-radius: 6px; }
+    .badge-client { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .badge-server { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+    .badge-custom { background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; }
+    .error-type { font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 0.5px; }
+
+    .error-title { font-size: 1.2rem; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+    .error-desc { font-size: 0.9rem; color: #475569; line-height: 1.5; margin-bottom: 14px; }
+    
+    .error-resolution { background: #f8fafc; border-left: 3px solid #FF9900; padding: 10px 14px; border-radius: 0 6px 6px 0; margin-bottom: 16px; font-size: 0.85rem; color: #334155; }
+    .error-resolution strong { color: #131921; }
+
+    .error-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+    .btn-explain { flex: 1; background: #131921; color: #FF9900; font-weight: 700; font-size: 0.82rem; padding: 8px 12px; border-radius: 6px; text-align: center; border: none; cursor: pointer; transition: background 0.2s; }
+    .btn-explain:hover { background: #232F3E; }
+    .btn-test { background: #f1f5f9; color: #334155; font-weight: 600; font-size: 0.82rem; padding: 8px 12px; border-radius: 6px; text-align: center; border: 1px solid #cbd5e1; text-decoration: none; }
+    .btn-test:hover { background: #e2e8f0; }
+
+    .cta-banner { background: #fff8e1; border: 1px solid #ffe082; border-radius: 10px; padding: 24px; text-align: center; margin-bottom: 40px; }
+    .cta-banner h3 { color: #131921; margin-bottom: 6px; }
+    .cta-banner p { color: #555; font-size: 0.92rem; margin-bottom: 14px; }
+  </style>
+</head>
+<body>
+
+<div class="flag-ribbon"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-icon">🛍️</span>Heave<span>gi</span></a>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <input type="text" id="nav-search-input" placeholder="Search products, brands and more…" />
+      <button type="submit">🔍</button>
+    </form>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-link"><span class="label">Home</span><span class="value">Shop</span></a>
+      <a href="faq.html" class="nav-link"><span class="label">Help</span><span class="value">FAQ</span></a>
+      <a href="health.html" class="nav-link"><span class="label">Status</span><span class="value">Health</span></a>
+      <a href="cart.html" class="cart-link">
+        <div class="cart-icon-wrap">🛒<span id="cart-badge" style="display:none;">0</span></div>
+        <span>Cart</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- CATEGORY NAV -->
+<nav class="cat-nav">
+  <div class="cat-nav-inner">
+    <a href="products.html">All Products</a>
+    <a href="faq.html">❓ Help & FAQ</a>
+    <a href="error-codes.html" class="active">⚠️ Error Codes Directory</a>
+    <a href="health.html">🟢 System Health</a>
+    <a href="404.html">Custom 404 Preview</a>
+    <a href="500.html">Custom 500 Preview</a>
+  </div>
+</nav>
+
+<div class="error-container">
+  <div class="error-header">
+    <h1>⚠️ System Error Codes Directory</h1>
+    <p>Heavegi Platforms monitors all HTTP status codes and custom transaction codes. You can ask our AI Assistant to explain any code or automatically raise a ticket.</p>
+  </div>
+
+  <div class="cta-banner">
+    <h3>Need immediate technical assistance?</h3>
+    <p>Our AI Assistant explains all standard HTTP codes and Heavegi payment/delivery codes in plain English.</p>
+    <button class="btn-primary" style="display:inline-block;padding:10px 24px;border-radius:20px;" onclick="window.openAssistant('Can you explain all Heavegi error codes?')">
+      💬 Ask AI Assistant to Explain Codes
+    </button>
+  </div>
+
+  <div id="error-grid" class="error-grid">
+    <div style="text-align:center;grid-column:1/-1;padding:40px;color:#888;">Loading error codes from SQL database...</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <h4>🛍️ Heavegi Platforms</h4>
+      <p>Transparent e-commerce platform with automated AI error diagnosis and 24x7 resolution.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="404.html">Test 404 Page</a></li>
+        <li><a href="/simulate-500">Test 500 Page</a></li>
+        <li><a href="health.html">Health Check Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 <span>Heavegi Platforms Pvt. Ltd.</span> — Made with ❤️ in India 🇮🇳</p>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/chat.js"></script>
+<script>
+  const FALLBACK_ERROR_CODES = [
+    { code: '400', title: 'Bad Request', description: 'The server could not understand the request due to malformed syntax, missing parameters, or invalid payload.', resolution: 'Verify that your input, pincode, or search parameters are correctly formatted.' },
+    { code: '401', title: 'Unauthorized', description: 'Authentication credentials are missing or invalid. Your session token may have expired.', resolution: 'Please log in again to your Heavegi account or refresh your session.' },
+    { code: '403', title: 'Forbidden', description: 'Access is denied. Your account does not have sufficient permissions to view this resource.', resolution: 'Check your account privileges or contact our customer team at support@heavegi.in.' },
+    { code: '404', title: 'Not Found', description: 'The requested product, order, or web page could not be located on the Heavegi servers.', resolution: 'Check the URL spelling or use our search bar to find the desired item.' },
+    { code: '429', title: 'Too Many Requests', description: 'You have exceeded the rate limit threshold (300 requests per 15 minutes) to protect against DDoS.', resolution: 'Wait 15 minutes before retrying your request or throttle API calls.' },
+    { code: '500', title: 'Internal Server Error', description: 'An unexpected condition was encountered on the backend server while processing your request.', resolution: 'Try refreshing in a few moments or click "Ask Assistant" to auto-create a support ticket.' },
+    { code: '503', title: 'Service Unavailable', description: 'The server is temporarily overloaded or down for scheduled maintenance.', resolution: 'Check our Live Health Check page or retry in 2–3 minutes.' },
+    { code: 'HEAVEGI-001', title: 'Payment Gateway Timeout', description: 'Site-specific error: UPI or Net Banking payment gateway did not return confirmation within the timeout window.', resolution: 'Check your bank SMS/app. If deducted, money is refunded automatically within 2–5 business days.' }
+  ];
+
+  async function loadErrorCodes() {
+    let codes = [];
+    try {
+      const data = await API.get('/api/errorcodes');
+      codes = data.error_codes || data;
+      if (!codes || !codes.length) codes = FALLBACK_ERROR_CODES;
+    } catch {
+      codes = FALLBACK_ERROR_CODES;
+    }
+
+    renderErrorCodes(codes);
+  }
+
+  function renderErrorCodes(codes) {
+    const grid = document.getElementById('error-grid');
+    grid.innerHTML = codes.map(c => {
+      let badgeClass = 'badge-client';
+      let typeLabel = 'Client Error';
+      let testLink = '';
+
+      if (c.code.startsWith('5')) {
+        badgeClass = 'badge-server';
+        typeLabel = 'Server Error';
+        if (c.code === '500') testLink = '<a href="/simulate-500" class="btn-test" title="Simulate 500">Test 500</a>';
+      } else if (c.code.startsWith('HEAVEGI')) {
+        badgeClass = 'badge-custom';
+        typeLabel = 'Site-Specific Error';
+      } else if (c.code === '404') {
+        testLink = '<a href="/non-existent-page-test" class="btn-test" title="Simulate 404">Test 404</a>';
+      }
+
+      return `
+        <div class="error-card">
+          <div>
+            <div class="error-badge-row">
+              <span class="error-badge ${badgeClass}">${c.code}</span>
+              <span class="error-type">${typeLabel}</span>
+            </div>
+            <h3 class="error-title">${c.title}</h3>
+            <p class="error-desc">${c.description}</p>
+            <div class="error-resolution">
+              <strong>💡 Resolution:</strong> ${c.resolution || 'Contact Heavegi customer support.'}
+            </div>
+          </div>
+          <div class="error-actions">
+            <button class="btn-explain" onclick="window.openAssistant('Explain error ${c.code} ${c.title}')">
+              💬 Ask Assistant
+            </button>
+            ${testLink}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  document.getElementById('nav-search-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = document.getElementById('nav-search-input').value.trim();
+    if (q) window.location.href = `products.html?q=${encodeURIComponent(q)}`;
+  });
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('nav-search-form').classList.toggle('mobile-open');
+  });
+
+  loadErrorCodes();
+</script>
+</body>
+</html>
+

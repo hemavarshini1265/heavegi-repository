@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions — Heavegi Platforms Customer Help</title>
+  <meta name="description" content="Find answers to common questions about orders, payments (UPI/COD), deliveries across Indian pincodes, and seller accounts." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+  <style>
+    .faq-container { max-width: 960px; margin: 30px auto; padding: 0 16px; }
+    .faq-header-box { background: linear-gradient(135deg, #131921 0%, #232F3E 100%); color: #fff; padding: 36px 24px; border-radius: 12px; margin-bottom: 24px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .faq-header-box h1 { font-size: 2rem; color: #FF9900; margin-bottom: 8px; }
+    .faq-header-box p { color: #ddd; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+    .faq-search-wrap { max-width: 600px; margin: 20px auto 0; position: relative; }
+    .faq-search-input { width: 100%; padding: 14px 20px; font-size: 1rem; border-radius: 30px; border: 2px solid #FF9900; outline: none; background: #fff; }
+    
+    .faq-cats { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px; }
+    .faq-cat-btn { background: #fff; border: 1px solid #ddd; padding: 8px 18px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; color: #131921; transition: all 0.2s; cursor: pointer; }
+    .faq-cat-btn:hover, .faq-cat-btn.active { background: #FF9900; color: #131921; border-color: #FF9900; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+    .faq-card { background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 2px 6px rgba(0,0,0,0.03); overflow: hidden; transition: all 0.2s; }
+    .faq-card:hover { border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+    .faq-question { padding: 18px 22px; font-weight: 700; font-size: 1.05rem; color: #131921; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+    .faq-question .cat-tag { font-size: 0.72rem; text-transform: uppercase; background: #f0f4f8; color: #232f3e; padding: 3px 8px; border-radius: 4px; margin-left: 10px; font-weight: 600; }
+    .faq-toggle-icon { font-size: 1.3rem; color: #FF9900; transition: transform 0.2s; }
+    .faq-answer { padding: 0 22px 18px; font-size: 0.94rem; color: #334155; line-height: 1.65; display: none; border-top: 1px solid #f1f5f9; background: #fafafa; }
+    .faq-card.open .faq-answer { display: block; }
+    .faq-card.open .faq-toggle-icon { transform: rotate(45deg); color: #c0392b; }
+
+    .faq-cta-box { background: #fff3e0; border: 2px dashed #FF9900; border-radius: 12px; padding: 28px; text-align: center; margin: 40px 0; }
+    .faq-cta-box h3 { font-size: 1.3rem; color: #131921; margin-bottom: 8px; }
+    .faq-cta-box p { color: #555; margin-bottom: 16px; font-size: 0.95rem; }
+    .btn-ask-ai { background: #131921; color: #FF9900; padding: 12px 28px; border-radius: 24px; font-weight: 800; font-size: 1rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s, background 0.2s; }
+    .btn-ask-ai:hover { background: #232F3E; transform: scale(1.03); }
+  </style>
+</head>
+<body>
+
+<div class="flag-ribbon"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-icon">🛍️</span>Heave<span>gi</span></a>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <input type="text" id="nav-search-input" placeholder="Search products, brands and more…" />
+      <button type="submit">🔍</button>
+    </form>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-link"><span class="label">Home</span><span class="value">Shop</span></a>
+      <a href="error-codes.html" class="nav-link"><span class="label">System</span><span class="value">Errors</span></a>
+      <a href="health.html" class="nav-link"><span class="label">Status</span><span class="value">Health</span></a>
+      <a href="cart.html" class="cart-link">
+        <div class="cart-icon-wrap">🛒<span id="cart-badge" style="display:none;">0</span></div>
+        <span>Cart</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- CATEGORY NAV -->
+<nav class="cat-nav">
+  <div class="cat-nav-inner">
+    <a href="products.html">All Products</a>
+    <a href="products.html?category=Electronics">📱 Electronics</a>
+    <a href="products.html?category=Clothing">👕 Clothing</a>
+    <a href="products.html?category=Groceries">🛒 Groceries</a>
+    <a href="products.html?category=Books">📚 Books</a>
+    <a href="faq.html" class="active">❓ Help & FAQ</a>
+    <a href="error-codes.html">⚠️ Error Codes</a>
+    <a href="health.html">🟢 System Health</a>
+  </div>
+</nav>
+
+<div class="faq-container">
+  <div class="faq-header-box">
+    <h1>Heavegi Customer Help & FAQs</h1>
+    <p>Everything you need to know about shopping, tracking, returns, Indian payment methods (UPI/COD), and delivery.</p>
+    <div class="faq-search-wrap">
+      <input type="text" id="faq-search" class="faq-search-input" placeholder="🔍 Type your question or keyword (e.g. delivery, UPI, return)..." />
+    </div>
+  </div>
+
+  <!-- Category Filter Pills -->
+  <div class="faq-cats">
+    <button class="faq-cat-btn active" data-cat="all">All FAQs (<span id="total-count">0</span>)</button>
+    <button class="faq-cat-btn" data-cat="general">General</button>
+    <button class="faq-cat-btn" data-cat="orders">Orders & Tracking</button>
+    <button class="faq-cat-btn" data-cat="payments">Payments & UPI</button>
+    <button class="faq-cat-btn" data-cat="delivery">Delivery</button>
+    <button class="faq-cat-btn" data-cat="support">Customer Support</button>
+    <button class="faq-cat-btn" data-cat="seller">Selling on Heavegi</button>
+  </div>
+
+  <!-- FAQ Accordion List -->
+  <div id="faq-list" class="faq-list">
+    <div style="text-align:center;padding:40px;color:#888;">Loading FAQs from database...</div>
+  </div>
+
+  <!-- Ask AI Assistant Banner -->
+  <div class="faq-cta-box">
+    <h3>Can't find what you're looking for?</h3>
+    <p>Our 24x7 Heavegi AI Assistant answers directly from our SQL database, explains error codes, or raises a support ticket automatically!</p>
+    <button class="btn-ask-ai" onclick="window.openAssistant('I have a question about my order delivery')">
+      <span>💬</span> Ask the Heavegi Assistant
+    </button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <h4>🛍️ Heavegi Platforms</h4>
+      <p>India's trusted online shopping destination with secure UPI, Net Banking, and nationwide delivery.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">All Products</a></li>
+        <li><a href="faq.html">Help & FAQ</a></li>
+        <li><a href="error-codes.html">Error Code Directory</a></li>
+        <li><a href="health.html">Live Health Check</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 <span>Heavegi Platforms Pvt. Ltd.</span> — Made with ❤️ in India 🇮🇳</p>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/chat.js"></script>
+<script>
+  let allFaqs = [];
+
+  const FALLBACK_FAQS = [
+    { id: 1, question: "What is Heavegi Platforms?", answer: "Heavegi Platforms is an Indian e-commerce marketplace where you can buy electronics, clothing, groceries, books, and much more. We deliver across all major Indian pincodes with quick delivery and easy returns.", category: "general" },
+    { id: 2, question: "How can I track my order?", answer: "You can track your order by logging in to your Heavegi account, going to 'My Orders', and clicking 'Track Order'. You will also receive real-time SMS and email updates at every delivery milestone.", category: "orders" },
+    { id: 3, question: "What is the return policy on Heavegi?", answer: "Heavegi offers a 7-day return window for most products. Electronics carry a 30-day replacement guarantee. Refunds are processed within 5–7 business days to your original payment method.", category: "orders" },
+    { id: 4, question: "Which payment methods are accepted on Heavegi?", answer: "We accept UPI (PhonePe, Google Pay, Paytm, BHIM), RuPay, Visa, Mastercard, Net Banking across all Indian banks, EMI, and Cash on Delivery (COD).", category: "payments" },
+    { id: 5, question: "Is Cash on Delivery (COD) available?", answer: "Yes! COD is available for orders between ₹299 and ₹10,000 at eligible pincodes across India. Select Cash on Delivery during checkout.", category: "payments" },
+    { id: 6, question: "How long does delivery take?", answer: "Standard delivery takes 3–7 business days across India. Express delivery in metro cities (Mumbai, Delhi, Bangalore, Chennai, Hyderabad, Kolkata) takes 1–2 business days. Free delivery on orders above ₹499.", category: "delivery" },
+    { id: 7, question: "How do I cancel an order?", answer: "You can cancel an order before it is shipped by going to My Orders → Cancel Order. Prepaid orders receive an instant full refund.", category: "orders" },
+    { id: 8, question: "How do I contact Heavegi customer support?", answer: "You can reach us via: (1) AI Chat on this page — available 24/7, (2) Email at support@heavegi.in, or (3) Toll-free helpline 1800-HEAVEGI (9 AM–9 PM).", category: "support" },
+    { id: 9, question: "Is my payment information safe on Heavegi?", answer: "Yes, 100%. Heavegi uses 256-bit SSL encryption, PCI-DSS compliant checkout, and RBI-mandated 2-factor authentication for cards and UPI.", category: "payments" },
+    { id: 10, question: "How do I become a seller on Heavegi?", answer: "Visit heavegi.in/sell, enter your business GSTIN and bank details, and start listing Indian products within 48 hours with minimal commission.", category: "seller" }
+  ];
+
+  async function loadFaqs() {
+    try {
+      const data = await API.get('/api/faq');
+      allFaqs = data.faqs || data;
+      if (!allFaqs || allFaqs.length === 0) allFaqs = FALLBACK_FAQS;
+    } catch (err) {
+      console.warn('API error fetching FAQs, using fallback:', err);
+      allFaqs = FALLBACK_FAQS;
+    }
+
+    document.getElementById('total-count').textContent = allFaqs.length;
+    renderFaqs(allFaqs);
+  }
+
+  function renderFaqs(faqs) {
+    const listEl = document.getElementById('faq-list');
+    if (!faqs.length) {
+      listEl.innerHTML = `
+        <div style="text-align:center;padding:40px;background:#fff;border-radius:10px;">
+          <p style="font-size:1.1rem;color:#666;">No FAQs match your search.</p>
+          <button class="btn-ask-ai" style="margin-top:14px;" onclick="window.openAssistant(document.getElementById('faq-search').value)">
+            Ask AI Assistant instead
+          </button>
+        </div>`;
+      return;
+    }
+
+    listEl.innerHTML = faqs.map((f, i) => `
+      <div class="faq-card ${i === 0 ? 'open' : ''}" data-cat="${f.category || 'general'}">
+        <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <div>
+            <span>${f.question}</span>
+            <span class="cat-tag">${f.category || 'General'}</span>
+          </div>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>${f.answer}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function filterFaqs() {
+    const query = document.getElementById('faq-search').value.toLowerCase().trim();
+    const activeCat = document.querySelector('.faq-cat-btn.active').dataset.cat;
+
+    const filtered = allFaqs.filter(f => {
+      const matchCat = activeCat === 'all' || (f.category && f.category.toLowerCase() === activeCat);
+      const matchQuery = !query || f.question.toLowerCase().includes(query) || f.answer.toLowerCase().includes(query);
+      return matchCat && matchQuery;
+    });
+
+    renderFaqs(filtered);
+  }
+
+  // Category buttons
+  document.querySelectorAll('.faq-cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterFaqs();
+    });
+  });
+
+  // Search input
+  document.getElementById('faq-search').addEventListener('input', filterFaqs);
+
+  // Search navbar
+  document.getElementById('nav-search-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = document.getElementById('nav-search-input').value.trim();
+    if (q) window.location.href = `products.html?q=${encodeURIComponent(q)}`;
+  });
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('nav-search-form').classList.toggle('mobile-open');
+  });
+
+  loadFaqs();
+</script>
+</body>
+</html>
+

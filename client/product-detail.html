@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details — Heavegi Platforms</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+  <style>
+    .thumb-row { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+    .thumb-row img { width:70px; height:70px; object-fit:cover; border-radius:6px; border:2px solid #eee; cursor:pointer; transition:border-color 0.2s; }
+    .thumb-row img.active, .thumb-row img:hover { border-color:#FF9900; }
+    .product-features { background:#f9f9f9; border-radius:10px; padding:16px; margin-bottom:20px; }
+    .product-features h4 { font-size:0.95rem; font-weight:700; margin-bottom:10px; color:#131921; }
+    .product-features ul li { font-size:0.88rem; color:#444; padding:4px 0; border-bottom:1px solid #eee; }
+    .product-features ul li::before { content:'✓ '; color:#138808; font-weight:bold; }
+    .btn-buynow { width:100%; background:#131921; color:#FF9900; font-weight:800; padding:12px; border-radius:6px; font-size:0.95rem; transition:background 0.2s; margin-top:10px; }
+    .btn-buynow:hover { background:#232F3E; }
+    .delivery-info { display:flex; align-items:flex-start; gap:10px; padding:12px; background:#f0faf0; border-radius:8px; margin-bottom:16px; border:1px solid #c3e6cb; }
+    .delivery-info .icon { font-size:1.4rem; }
+    .delivery-info .text { font-size:0.88rem; color:#333; line-height:1.5; }
+    .delivery-info .text strong { color:#138808; }
+  </style>
+</head>
+<body>
+
+<div class="flag-ribbon"></div>
+
+<nav class="navbar" role="navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-icon">🛍️</span>Heave<span>gi</span></a>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <input type="text" id="nav-search-input" placeholder="Search products, brands and more…" />
+      <button type="submit">🔍</button>
+    </form>
+    <div class="nav-actions">
+      <a href="#" class="nav-link"><span class="label">Hello, Guest</span><span class="value">Account ▾</span></a>
+      <a href="cart.html" class="cart-link">
+        <div class="cart-icon-wrap">🛒<span id="cart-badge" style="display:none;">0</span></div>
+        <span>Cart</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<nav class="cat-nav" aria-label="Categories">
+  <div class="cat-nav-inner">
+    <a href="products.html">All</a>
+    <a href="products.html?category=Electronics">📱 Electronics</a>
+    <a href="products.html?category=Clothing">👕 Clothing</a>
+    <a href="products.html?category=Groceries">🛒 Groceries</a>
+    <a href="products.html?category=Books">📚 Books</a>
+    <a href="products.html?category=Home+%26+Kitchen">🏠 Home & Kitchen</a>
+    <a href="faq.html">❓ Help & FAQ</a>
+    <a href="error-codes.html">⚠️ Error Codes</a>
+    <a href="health.html">🟢 Health</a>
+  </div>
+</nav>
+
+<!-- Breadcrumb -->
+<div style="background:#fff;padding:10px 16px;border-bottom:1px solid #eee;font-size:0.85rem;color:#666;">
+  <div class="container">
+    <a href="index.html" style="color:#0066C0;">Home</a> ›
+    <a href="products.html" style="color:#0066C0;">Products</a> ›
+    <span id="breadcrumb-name">Product</span>
+  </div>
+</div>
+
+<main>
+  <div id="product-loading" class="loading-container"><div class="spinner"></div><p>Loading product…</p></div>
+  <div id="product-content" style="display:none;">
+    <div class="product-detail-layout">
+
+      <!-- Images -->
+      <div class="product-detail-images">
+        <img id="main-image" src="" alt="Product" style="width:100%;border-radius:12px;border:1px solid #eee;min-height:350px;object-fit:cover;" />
+        <div class="thumb-row" id="thumb-row"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="product-detail-info">
+        <span id="detail-category" class="product-card-category" style="margin-bottom:10px;display:inline-block;"></span>
+        <h1 id="detail-name"></h1>
+
+        <div class="product-rating">
+          <span class="stars" id="detail-stars"></span>
+          <span class="count" id="detail-reviews"></span>
+          <span class="badge badge-success" id="detail-instock" style="margin-left:8px;"></span>
+        </div>
+
+        <div class="product-price">
+          <span id="detail-price"></span>
+          <span class="product-mrp" id="detail-mrp"></span>
+          <span class="product-discount" id="detail-discount" style="display:none;"></span>
+        </div>
+
+        <div class="delivery-info">
+          <div class="icon">🚚</div>
+          <div class="text">
+            <strong>FREE Delivery</strong> on orders above ₹499<br/>
+            Usually dispatched in 1–2 business days
+          </div>
+        </div>
+
+        <p class="product-description" id="detail-description"></p>
+
+        <div class="product-features" id="detail-features" style="display:none;">
+          <h4>Key Features</h4>
+          <ul id="features-list"></ul>
+        </div>
+
+        <!-- Pincode Checker -->
+        <div class="pincode-checker">
+          <h4>📍 Check Delivery at Your Location</h4>
+          <div class="pincode-row">
+            <input type="text" id="pincode-input" placeholder="Enter 6-digit pincode" maxlength="6" pattern="\d{6}" />
+            <button id="pincode-btn" type="button">Check</button>
+          </div>
+          <div class="pincode-result" id="pincode-result" aria-live="polite"></div>
+        </div>
+
+        <!-- Quantity -->
+        <div class="qty-row">
+          <label for="qty-input">Quantity:</label>
+          <div class="qty-selector">
+            <button id="qty-minus" aria-label="Decrease quantity">−</button>
+            <input type="number" id="qty-input" value="1" min="1" max="10" aria-label="Quantity" />
+            <button id="qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <button class="btn-add-cart" id="add-to-cart-btn" style="margin-bottom:10px;">🛒 Add to Cart</button>
+        <button class="btn-buynow" id="buy-now-btn">⚡ Buy Now</button>
+
+        <div style="margin-top:16px;padding:12px;background:#f9f9f9;border-radius:8px;font-size:0.82rem;color:#666;">
+          🔒 Secure payments &nbsp;|&nbsp; ✅ 100% Genuine Products &nbsp;|&nbsp; ↩️ Easy Returns
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="section" style="background:#fff;" id="related-section" aria-labelledby="related-heading">
+  <div class="container">
+    <h2 class="section-title" id="related-heading">You May Also Like</h2>
+    <div id="related-products" class="product-grid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-col"><h4>🛍️ Heavegi</h4><p>India's trusted online marketplace.</p></div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">My Cart</a></li>
+        <li><a href="faq.html">Help & FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2024 <span>Heavegi Platforms Pvt. Ltd.</span> — Made with ❤️ in India 🇮🇳</p></div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/chat.js"></script>
+<script>
+  const FALLBACK_PRODUCTS = [
+    { id:1, name:'Samsung Galaxy M14 5G (4GB/128GB)', price:14999, mrp:18999, category:'Electronics', rating:4.2, reviews:3241, description:'Experience the power of 5G with the Samsung Galaxy M14. Features a stunning 6.6" FHD+ display, 50MP triple camera, and a massive 6000mAh battery.', pincode_areas:'400001,110001,600001,560001,700001', features:['6.6" FHD+ Display','50MP Triple Camera','6000mAh Battery','5G Connectivity','4GB RAM / 128GB Storage'] },
+    { id:2, name:'Realme Buds Air 3 Neo TWS Earbuds', price:1799, mrp:2999, category:'Electronics', rating:4.0, reviews:892, description:'Realme Buds Air 3 Neo delivers 33 hours of total playtime with the case. 10mm bass boost driver for rich sound.', pincode_areas:'400001,110001,560001', features:['33hr Total Playtime','10mm Bass Boost Driver','In-Ear Detection','Fast Charge Support','IPX5 Water Resistant'] },
+    { id:3, name:'boAt Rockerz 450 Wireless Headphone', price:1299, mrp:2990, category:'Electronics', rating:4.1, reviews:3421, description:'boAt Rockerz 450 delivers immersive audio with 15 hours of battery. Soft padded ear cushions for comfort.', pincode_areas:'400001,110001,600001', features:['15hr Battery Life','40mm Dynamic Drivers','Foldable Design','Dual Mode (Wired & Wireless)','Built-in Mic'] },
+    { id:4, name:'Redmi 12C Smartphone 4GB/64GB', price:9499, mrp:11999, category:'Electronics', rating:4.0, reviews:1234, description:'Redmi 12C features a 6.71" HD+ display, 50MP rear camera, 5000mAh battery and runs MIUI 13 based on Android 12.', pincode_areas:'400001,110001,560001,700001', features:['6.71" HD+ Display','50MP Main Camera','5000mAh Battery','MediaTek Helio G85','Dual SIM 4G'] },
+    { id:5, name:'HP 15 Laptop Intel Core i3 11th Gen', price:38990, mrp:49990, category:'Electronics', rating:4.3, reviews:567, description:'Powerful everyday laptop with 11th Gen Intel Core i3, 8GB RAM, 512GB SSD, and Windows 11.', pincode_areas:'400001,110001,600001,560001', features:['11th Gen Intel Core i3','8GB DDR4 RAM','512GB SSD','15.6" FHD IPS Display','Windows 11 Home'] },
+    { id:7, name:'Cotton Kurta Set for Women (Blue)', price:699, mrp:1199, category:'Clothing', rating:4.5, reviews:567, description:'Beautiful pure cotton kurta with matching palazzo set. Perfect for daily wear and festive occasions.', pincode_areas:'400001,110001,600001,560001,700001', features:['100% Pure Cotton','Free Size XS–3XL','Machine Washable','Matching Palazzo Included','Comfortable for All Day Wear'] },
+    { id:13, name:'Tata Salt 1kg (Pack of 5)', price:120, mrp:140, category:'Groceries', rating:4.8, reviews:9823, description:'Tata Salt is India\'s most trusted iodised salt. Free-flowing, vacuum evaporated, with the right amount of iodine.', pincode_areas:'400001,110001,600001,560001,700001', features:['Iodised Table Salt','Vacuum Evaporated','1kg each — Pack of 5','Free Flowing Formula','No Artificial Preservatives'] },
+    { id:19, name:'Wings of Fire — A.P.J. Abdul Kalam', price:160, mrp:250, category:'Books', rating:4.9, reviews:4521, description:'Wings of Fire is the autobiography of A.P.J. Abdul Kalam. An inspiring account of his life from childhood to becoming India\'s beloved President.', pincode_areas:'400001,110001,600001,560001,700001', features:['English Edition','Paperback, 196 pages','Publisher: Universities Press','ISBN: 978-8173711466','Award-Winning Autobiography'] },
+    { id:24, name:'Prestige Pressure Cooker Aluminium 5L', price:1299, mrp:1999, category:'Home & Kitchen', rating:4.5, reviews:723, description:'Prestige aluminium pressure cooker with inner lid design. ISI marked for safety. 5-litre capacity ideal for 4–6 people.', pincode_areas:'400001,110001,560001', features:['5 Litre Capacity','ISI Certified','Aluminium Body','Safety Valve & Weight','2 Year Warranty'] },
+    { id:30, name:'Bajaj Majesty Induction Cooktop 1900W', price:1999, mrp:2999, category:'Home & Kitchen', rating:4.3, reviews:789, description:'Bajaj Majesty induction cooktop with 8 preset menus, touch panel, and auto-off for safety.', pincode_areas:'400001,110001,560001', features:['1900W Power','8 Preset Menus','Touch Panel Control','Auto-Off Safety','LED Display'] },
+  ];
+
+  const params = new URLSearchParams(location.search);
+  const productId = params.get('id');
+  let currentProduct = null;
+
+  async function loadProduct() {
+    const loading = document.getElementById('product-loading');
+    const content = document.getElementById('product-content');
+
+    try {
+      let product = null;
+      try {
+        product = await API.get(`/api/products/${productId}`);
+      } catch {
+        product = FALLBACK_PRODUCTS.find(p => String(p.id) === String(productId)) || FALLBACK_PRODUCTS[0];
+      }
+      currentProduct = product;
+      renderProduct(product);
+      loading.style.display = 'none';
+      content.style.display = 'block';
+      loadRelated(product.category, product.id);
+    } catch (err) {
+      loading.innerHTML = '<p>Failed to load product. <a href="products.html">Browse all products</a></p>';
+    }
+  }
+
+  function renderProduct(p) {
+    document.title = `${p.name} — Heavegi`;
+    document.getElementById('breadcrumb-name').textContent = p.name;
+    document.getElementById('detail-category').textContent = p.category || '';
+    document.getElementById('detail-name').textContent = p.name;
+
+    const stars = '★'.repeat(Math.round(p.rating || 4)) + '☆'.repeat(5 - Math.round(p.rating || 4));
+    document.getElementById('detail-stars').textContent = stars;
+    document.getElementById('detail-reviews').textContent = `(${(p.reviews || 0).toLocaleString('en-IN')} ratings)`;
+    document.getElementById('detail-instock').textContent = (p.stock === 0) ? 'Out of Stock' : 'In Stock';
+    document.getElementById('detail-instock').className = `badge ${(p.stock === 0) ? 'badge-danger' : 'badge-success'}`;
+
+    document.getElementById('detail-price').textContent = `₹${Number(p.price).toLocaleString('en-IN')}`;
+    if (p.mrp && p.mrp > p.price) {
+      document.getElementById('detail-mrp').textContent = `M.R.P.: ₹${Number(p.mrp).toLocaleString('en-IN')}`;
+      const disc = Math.round((1 - p.price / p.mrp) * 100);
+      const discEl = document.getElementById('detail-discount');
+      discEl.textContent = `${disc}% off`;
+      discEl.style.display = 'inline-block';
+    }
+
+    document.getElementById('detail-description').textContent = p.description || '';
+
+    const imgId = p.id || Math.floor(Math.random() * 100);
+    const imgs = [
+      p.image || `https://picsum.photos/500/400?random=${imgId}`,
+      `https://picsum.photos/500/400?random=${imgId + 100}`,
+      `https://picsum.photos/500/400?random=${imgId + 200}`,
+    ];
+
+    document.getElementById('main-image').src = imgs[0];
+    document.getElementById('main-image').alt = p.name;
+
+    const thumbRow = document.getElementById('thumb-row');
+    thumbRow.innerHTML = imgs.map((src, i) => `<img src="${src}" alt="${p.name} view ${i+1}" class="${i===0?'active':''}" />`).join('');
+    thumbRow.querySelectorAll('img').forEach((img, i) => {
+      img.addEventListener('click', () => {
+        document.getElementById('main-image').src = imgs[i];
+        thumbRow.querySelectorAll('img').forEach(t => t.classList.remove('active'));
+        img.classList.add('active');
+      });
+    });
+
+    if (p.features && p.features.length) {
+      const featSec = document.getElementById('detail-features');
+      featSec.style.display = 'block';
+      document.getElementById('features-list').innerHTML = p.features.map(f => `<li>${f}</li>`).join('');
+    }
+  }
+
+  // Pincode checker
+  document.getElementById('pincode-btn').addEventListener('click', async () => {
+    const pin = document.getElementById('pincode-input').value.trim();
+    const result = document.getElementById('pincode-result');
+    if (!/^\d{6}$/.test(pin)) { result.className = 'pincode-result err'; result.textContent = '⚠️ Please enter a valid 6-digit pincode.'; return; }
+    result.textContent = 'Checking…'; result.className = 'pincode-result';
+    try {
+      const data = await API.get(`/api/products/${productId}/pincode/${pin}`);
+      if (data.available) {
+        result.className = 'pincode-result ok';
+        result.textContent = `✅ Delivery available to ${pin}! Estimated: ${data.estimated_days || '3–5'} days.`;
+      } else {
+        result.className = 'pincode-result err';
+        result.textContent = `❌ Sorry, delivery is not available to pincode ${pin} currently.`;
+      }
+    } catch {
+      // Fallback: check pincode areas from product
+      const areas = (currentProduct && currentProduct.pincode_areas || '').split(',').map(s => s.trim());
+      if (areas.some(a => a === pin || a.startsWith(pin.slice(0, 3)))) {
+        result.className = 'pincode-result ok';
+        result.textContent = `✅ Delivery available to ${pin}! Estimated: 3–5 business days.`;
+      } else {
+        result.className = 'pincode-result err';
+        result.textContent = `❌ Delivery not available to pincode ${pin}. Try a nearby pincode.`;
+      }
+    }
+  });
+
+  document.getElementById('pincode-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('pincode-btn').click();
+  });
+
+  // Quantity
+  const qtyInput = document.getElementById('qty-input');
+  document.getElementById('qty-minus').addEventListener('click', () => { qtyInput.value = Math.max(1, parseInt(qtyInput.value) - 1); });
+  document.getElementById('qty-plus').addEventListener('click', () => { qtyInput.value = Math.min(10, parseInt(qtyInput.value) + 1); });
+
+  // Add to cart
+  document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+    if (!currentProduct) return;
+    Cart.addItem(currentProduct, parseInt(qtyInput.value));
+  });
+
+  // Buy now
+  document.getElementById('buy-now-btn').addEventListener('click', () => {
+    if (!currentProduct) return;
+    Cart.addItem(currentProduct, parseInt(qtyInput.value));
+    window.location.href = 'checkout.html';
+  });
+
+  // Related products
+  async function loadRelated(category, excludeId) {
+    const container = document.getElementById('related-products');
+    let products = [];
+    try {
+      const data = await API.get(`/api/products?category=${encodeURIComponent(category)}`);
+      products = (data.products || data).filter(p => p.id !== Number(excludeId)).slice(0, 4);
+    } catch {
+      products = FALLBACK_PRODUCTS.filter(p => p.category === category && p.id !== Number(excludeId)).slice(0, 4);
+    }
+    container.innerHTML = products.map((p, i) => {
+      const stars = '★'.repeat(Math.round(p.rating || 4)) + '☆'.repeat(5 - Math.round(p.rating || 4));
+      const imgUrl = p.image || `https://picsum.photos/300/200?random=${(p.id || i) + 50}`;
+      const product = JSON.stringify(p).replace(/"/g, '&quot;');
+      return `
+        <div class="product-card">
+          <a href="product-detail.html?id=${p.id}">
+            <img src="${imgUrl}" alt="${p.name}" class="product-card-img" loading="lazy" />
+          </a>
+          <div class="product-card-body">
+            <span class="product-card-category">${p.category}</span>
+            <a href="product-detail.html?id=${p.id}" class="product-card-name">${p.name}</a>
+            <div class="product-card-rating"><span>${stars}</span><span class="count">(${p.reviews || '—'})</span></div>
+            <div class="product-card-price">₹${Number(p.price).toLocaleString('en-IN')}</div>
+            <div class="product-card-actions">
+              <button class="btn-add-cart" data-product="${product}">🛒 Add to Cart</button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+    container.querySelectorAll('.btn-add-cart').forEach(btn => {
+      btn.addEventListener('click', () => Cart.addItem(JSON.parse(btn.dataset.product)));
+    });
+  }
+
+  // Nav search
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('nav-search-form').classList.toggle('mobile-open'));
+  document.getElementById('nav-search-form').addEventListener('submit', e => { e.preventDefault(); const q = document.getElementById('nav-search-input').value.trim(); if (q) window.location.href = `products.html?q=${encodeURIComponent(q)}`; });
+
+  loadProduct();
+</script>
+</body>
+</html>

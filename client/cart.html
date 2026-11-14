@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart — Heavegi Platforms</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+</head>
+<body>
+
+<div class="flag-ribbon"></div>
+
+<nav class="navbar" role="navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-icon">🛍️</span>Heave<span>gi</span></a>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <input type="text" id="nav-search-input" placeholder="Search products, brands and more…" />
+      <button type="submit">🔍</button>
+    </form>
+    <div class="nav-actions">
+      <a href="#" class="nav-link"><span class="label">Hello, Guest</span><span class="value">Account ▾</span></a>
+      <a href="cart.html" class="cart-link">
+        <div class="cart-icon-wrap">🛒<span id="cart-badge" style="display:none;">0</span></div>
+        <span>Cart</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1>🛒 Shopping Cart</h1>
+    <p id="cart-header-count">Your cart is empty</p>
+  </div>
+</div>
+
+<main>
+  <!-- Empty state -->
+  <div id="empty-cart" class="cart-empty" style="display:none;">
+    <div class="empty-icon">🛒</div>
+    <h2>Your cart is empty</h2>
+    <p>Looks like you haven't added anything yet. Discover great deals on thousands of products!</p>
+    <a href="products.html" class="btn-primary" style="margin-top:20px;display:inline-block;">Start Shopping</a>
+  </div>
+
+  <!-- Cart content -->
+  <div id="cart-content" class="cart-layout" style="display:none;">
+    <div class="cart-items-panel">
+      <h2 style="font-size:1.1rem;margin-bottom:16px;color:#131921;border-bottom:2px solid #FF9900;padding-bottom:10px;">
+        Cart Items (<span id="cart-count-label">0</span>)
+      </h2>
+      <div id="cart-items-list"></div>
+      <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="products.html" class="btn-secondary" style="padding:10px 20px;">← Continue Shopping</a>
+        <button id="clear-cart-btn" style="background:#fdecea;color:#c0392b;border:1px solid #f5b7b1;padding:10px 20px;border-radius:6px;font-weight:600;font-size:0.9rem;">🗑️ Clear Cart</button>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <h3>Order Summary</h3>
+      <div class="summary-row"><span>Subtotal (<span id="sum-items">0</span> items)</span><span id="sum-subtotal">₹0</span></div>
+      <div class="summary-row savings"><span>🏷️ Discount</span><span id="sum-discount">-₹0</span></div>
+      <div class="summary-row"><span>🚚 Delivery</span><span id="sum-delivery">₹0</span></div>
+      <div class="summary-row total"><span>Total</span><span id="sum-total">₹0</span></div>
+      <p style="font-size:0.78rem;color:#138808;margin-top:8px;">🎉 You save <strong id="sum-savings">₹0</strong> on this order!</p>
+      <a href="checkout.html" id="checkout-btn">
+        <button class="btn-checkout">Proceed to Checkout →</button>
+      </a>
+      <div style="text-align:center;margin-top:12px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/UPI-Logo-vector.svg/200px-UPI-Logo-vector.svg.png" alt="UPI" style="height:24px;display:inline;margin:0 6px;" />
+        <span style="font-size:0.75rem;color:#888;">Safe & Secure Checkout</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Coupon section (decorative) -->
+<div id="coupon-section" class="container" style="display:none;margin-bottom:40px;">
+  <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #eee;max-width:600px;">
+    <h4 style="font-size:0.95rem;margin-bottom:12px;color:#131921;">🎫 Apply Coupon</h4>
+    <div style="display:flex;gap:10px;">
+      <input type="text" id="coupon-input" placeholder="Enter coupon code (e.g. HEAVEGI10)" style="flex:1;padding:10px 14px;border:1px solid #ddd;border-radius:6px;font-size:14px;outline:none;" />
+      <button id="apply-coupon" style="background:#FF9900;color:#131921;font-weight:700;padding:10px 20px;border-radius:6px;">Apply</button>
+    </div>
+    <p id="coupon-msg" style="margin-top:8px;font-size:0.82rem;"></p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-col"><h4>🛍️ Heavegi</h4><p>India's trusted online marketplace delivering joy to every corner of the country.</p></div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="faq.html">Help & FAQ</a></li>
+        <li><a href="error-codes.html">Error Codes</a></li>
+        <li><a href="health.html">Live Status</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2024 <span>Heavegi Platforms Pvt. Ltd.</span> — Made with ❤️ in India 🇮🇳</p></div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/chat.js"></script>
+<script>
+  function formatINR(n) { return '₹' + Number(n).toLocaleString('en-IN'); }
+
+  function renderCart() {
+    const items = Cart.getCart();
+    const empty = document.getElementById('empty-cart');
+    const content = document.getElementById('cart-content');
+    const coupon = document.getElementById('coupon-section');
+
+    if (!items.length) {
+      empty.style.display = 'block';
+      content.style.display = 'none';
+      coupon.style.display = 'none';
+      document.getElementById('cart-header-count').textContent = 'Your cart is empty';
+      return;
+    }
+
+    empty.style.display = 'none';
+    content.style.display = 'grid';
+    coupon.style.display = 'block';
+
+    const count = Cart.getCount();
+    document.getElementById('cart-header-count').textContent = `${count} item${count !== 1 ? 's' : ''} in your cart`;
+    document.getElementById('cart-count-label').textContent = count;
+
+    // Render items
+    const list = document.getElementById('cart-items-list');
+    list.innerHTML = items.map((item, idx) => `
+      <div class="cart-item" data-id="${item.id}">
+        <img src="${item.image || `https://picsum.photos/200/200?random=${item.id || idx + 1}`}" alt="${item.name}" />
+        <div>
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${formatINR(item.price)}</div>
+          ${item.mrp && item.mrp > item.price ? `<div style="font-size:0.8rem;color:#888;">M.R.P.: <s>${formatINR(item.mrp)}</s> <span style="color:#138808;">${Math.round((1-item.price/item.mrp)*100)}% off</span></div>` : ''}
+          <div class="cart-item-qty" style="margin-top:10px;">
+            <button onclick="changeQty(${item.id}, ${item.qty - 1})">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${item.id}, ${item.qty + 1})">+</button>
+          </div>
+          <button class="cart-item-remove" onclick="removeItem(${item.id})" style="margin-top:8px;">Remove</button>
+        </div>
+        <div class="cart-item-total">${formatINR(item.price * item.qty)}</div>
+      </div>`).join('');
+
+    // Summary
+    const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+    const mrpTotal = items.reduce((s, i) => s + (i.mrp || i.price) * i.qty, 0);
+    const discount = mrpTotal - subtotal;
+    const delivery = subtotal >= 499 ? 0 : 49;
+    const total = subtotal + delivery;
+    const savings = discount + (subtotal >= 499 ? 49 : 0);
+
+    document.getElementById('sum-items').textContent = count;
+    document.getElementById('sum-subtotal').textContent = formatINR(subtotal);
+    document.getElementById('sum-discount').textContent = `-${formatINR(discount)}`;
+    document.getElementById('sum-delivery').textContent = delivery === 0 ? 'FREE' : formatINR(delivery);
+    document.getElementById('sum-total').textContent = formatINR(total);
+    document.getElementById('sum-savings').textContent = formatINR(savings);
+  }
+
+  function changeQty(id, qty) { Cart.updateQty(id, qty); renderCart(); }
+  function removeItem(id) { Cart.removeItem(id); renderCart(); }
+
+  document.getElementById('clear-cart-btn').addEventListener('click', () => {
+    if (confirm('Clear all items from cart?')) { Cart.clearCart(); renderCart(); }
+  });
+
+  // Coupon logic (demo)
+  document.getElementById('apply-coupon').addEventListener('click', () => {
+    const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+    const msg = document.getElementById('coupon-msg');
+    if (code === 'HEAVEGI10') { msg.style.color = '#138808'; msg.textContent = '✅ Coupon applied! 10% discount.'; }
+    else if (code === 'FIRSTBUY') { msg.style.color = '#138808'; msg.textContent = '✅ Welcome offer applied! ₹100 off.'; }
+    else { msg.style.color = '#c0392b'; msg.textContent = '❌ Invalid or expired coupon code.'; }
+  });
+
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('nav-search-form').classList.toggle('mobile-open'));
+  document.getElementById('nav-search-form').addEventListener('submit', e => { e.preventDefault(); const q = document.getElementById('nav-search-input').value.trim(); if (q) window.location.href = `products.html?q=${encodeURIComponent(q)}`; });
+
+  renderCart();
+</script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | Heavegi Platforms</title>
+  <meta name="description" content="Looking for something on Heavegi? The page you requested could not be found." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+  <style>
+    .notfound-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .notfound-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 48px 24px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+    }
+    .notfound-illustration {
+      font-size: 5rem;
+      margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .notfound-code {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #FF9900;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .notfound-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #131921;
+      margin-bottom: 12px;
+    }
+    .notfound-subtitle {
+      font-size: 1rem;
+      color: #64748b;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+    .notfound-search {
+      max-width: 500px;
+      margin: 0 auto 30px;
+      display: flex;
+      gap: 8px;
+    }
+    .notfound-search input {
+      flex: 1;
+      padding: 12px 18px;
+      border: 2px solid #cbd5e1;
+      border-radius: 24px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .notfound-search input:focus {
+      border-color: #FF9900;
+    }
+    .notfound-search button {
+      background: #FF9900;
+      color: #131921;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+    }
+    .notfound-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .btn-assistant {
+      background: #131921;
+      color: #FF9900;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      border: 2px solid #131921;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(19, 25, 33, 0.2);
+    }
+    .btn-assistant:hover {
+      background: #232F3E;
+      transform: translateY(-2px);
+    }
+    .btn-home {
+      background: #FF9900;
+      color: #131921;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-home:hover {
+      background: #FEBD69;
+      transform: translateY(-2px);
+    }
+    .helpful-links {
+      border-top: 1px solid #f1f5f9;
+      padding-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    .helpful-links a {
+      color: #007185;
+      font-weight: 600;
+    }
+    .helpful-links a:hover {
+      text-decoration: underline;
+      color: #c7511f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="flag-ribbon"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-icon">🛍️</span>Heave<span>gi</span></a>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <input type="text" id="nav-search-input" placeholder="Search products, brands and more…" />
+      <button type="submit">🔍</button>
+    </form>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-link"><span class="label">Home</span><span class="value">Shop</span></a>
+      <a href="faq.html" class="nav-link"><span class="label">Help</span><span class="value">FAQ</span></a>
+      <a href="cart.html" class="cart-link">
+        <div class="cart-icon-wrap">🛒<span id="cart-badge" style="display:none;">0</span></div>
+        <span>Cart</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="notfound-container">
+  <div class="notfound-card">
+    <div class="notfound-illustration">📦🐕</div>
+    <div class="notfound-code">404</div>
+    <h1 class="notfound-title">Looking for something on Heavegi?</h1>
+    <p class="notfound-subtitle">
+      We're sorry! The web address you entered is not a functioning page on our site. It may have been moved, renamed, or deleted.
+    </p>
+
+    <!-- Search Form -->
+    <form class="notfound-search" onsubmit="event.preventDefault(); const q = document.getElementById('search-404').value.trim(); if (q) window.location.href = `products.html?q=${encodeURIComponent(q)}`;">
+      <input type="text" id="search-404" placeholder="Search for items, brands, or categories…" />
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- Main Call to Actions with Assessment Required 'Ask the Assistant' -->
+    <div class="notfound-actions">
+      <button class="btn-assistant" id="ask-assistant-btn" onclick="window.openAssistant('I reached a 404 Not Found error page on URL: ' + window.location.pathname + '. Can you help me find what I need?')">
+        <span>💬</span> Ask the Heavegi Assistant
+      </button>
+      <a href="index.html" class="btn-home">
+        <span>🏠</span> Go to Heavegi Home
+      </a>
+    </div>
+
+    <div class="helpful-links">
+      <span>Try these helpful links:</span>
+      <a href="products.html">All Products</a>
+      <a href="faq.html">Help & FAQs</a>
+      <a href="error-codes.html">Error Codes Directory</a>
+      <a href="health.html">Live Status</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <h4>🛍️ Heavegi Platforms</h4>
+      <p>India's trusted online shopping destination with 24x7 AI assistance.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="error-codes.html">Error Codes</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 <span>Heavegi Platforms Pvt. Ltd.</span> — Made with ❤️ in India 🇮🇳</p>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/chat.js"></script>
+<script>
+  document.getElementById('nav-search-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = document.getElementById('nav-search-input').value.trim();
+    if (q) window.location.href = `products.html?q=${encodeURIComponent(q)}`;
+  });
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('nav-search-form').classList.toggle('mobile-open');
+  });
+</script>
+</body>
+</html>
+
